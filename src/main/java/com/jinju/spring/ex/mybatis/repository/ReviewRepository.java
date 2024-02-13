@@ -16,4 +16,17 @@ public interface ReviewRepository {
 	// 해당하는 파라미터 앞에 @Param("id") 어노테이션을 추가함으로써 문자열 형태로 해당하는 파라미터 값을 xml에서 무슨 키워드로 사용할건지를 여기다가 매칭 시켜줌
 	// 그리고 int id는 자바 문법이다 자바 문법으로써 파라미터를 하나 선언 해야 되고 그 파라미터 이름은 전달 될 값을 의미하는 키워드로 변수 이름을 지어진것뿐이다.
 	// 이 변수 값이 사용되는 곳은 xml이고 xml에서 사용될 키워드는 @Param("id") 이 따옴표 안에 있는 값이다.
+	
+	
+	// insert 한 이후 딱히 정보를 전달할게 없음 그래서 수행된 행의 개수가 정수로 return 됨
+	public int insertReview(
+			@Param("storeId") int storeId
+			, @Param("menu") String menu
+			, @Param("userName")String userName
+			, @Param("point")double point
+			, @Param("review")String review); 
+	
+	public int insertReviewByObject(Review review);
+	
+	
 }

@@ -21,4 +21,21 @@ public class ReviewService {
 	}
 	
 	// service 메소드에서 작성한 내용은 어떠한 사용법도 없는 순수한 자바 코드이다.
+	
+	// storeid, menu, username, point , riview 내용을 전달 받아서 그 정보로 리뷰 내용을 저장하는 기능 만들기
+	public int addReview(int storeId, String menu, String userName, double point, String review){
+		// 파라미터로 받아 온 정보들을 실제로 리뷰에 저장을 해야 함
+		// 저장은 테이블에 insert를 하는 과정 이다.
+		// 테이블을 기반으로 기능 수행이 필요함 => repository에 위에 파라미터 값들을 다 전달 받고 처리 하기 위한 메소드 만들기
+		int count = reviewRepository.insertReview(storeId, menu, userName, point, review);
+		return count;
+	}
+	
+	// 리뷰 객체를 전달 받고 그 안에 있는 정보를 통해 리뷰 정보를 저장시켜주는 기능
+	public int addReviewByObject(Review review) {
+		// 저장은 테이블의 한 행을 insert 하는 과정 => repository 메소드 호출
+		int count = reviewRepository.insertReviewByObject(review);
+		
+		return count;
+	}
 }

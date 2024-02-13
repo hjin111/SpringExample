@@ -26,4 +26,46 @@
  			`id` = #{id}
  			
  	</select>
+ 	
+ 	<!-- 
+ 	mybatis dtd에서 insert 태그에는 resultType 속성을 정의해 놓지 않음
+ 	insert / delete / update resultType은 속성 자체를 지정 할 필요 없이 고정된 int 라는 리턴 값이 만들어짐 -->
+ 	<insert id="insertReview" parameterType="map">
+ 		INSERT INTO `new_review`
+ 		(
+ 			`storeId`
+ 			, `menu`
+ 			, `userName`
+ 			, `point`
+ 			, `review`		
+ 		)
+ 		VALUE
+ 		(
+ 			#{storeId}
+ 			, #{menu}
+ 			, #{userName}
+ 			, #{point}
+ 			, #{review}
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="insertReviewByObject" 
+ 	parameterType="com.jinju.spring.ex.mybatis.domain.Review">
+ 		INSERT INTO `new_review`
+ 		(
+ 			`storeId`
+ 			, `menu`
+ 			, `userName`
+ 			, `point`
+ 			, `review`		
+ 		)
+ 		VALUE
+ 		(
+ 			#{storeId}
+ 			,#{menu}
+ 			,#{userName}
+ 			,#{point}
+ 			,#{review}
+ 		)
+ 	</insert>
  </mapper>
