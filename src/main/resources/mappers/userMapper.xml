@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 이 xml은 mybatis 프레임워크 기반으로 인터페이스와 연동해서 동작하는 놈이구
+	 이 xml의 규칙은 mybatis에서 정해놨음 dtd를 통해 이 xml의 규칙을 부여하겠다
+-->
+
+<!-- dtd : xml에서 사용된 태그를 정의한 문서 
+	 mybatis에 dtd 기반으로 태그의 규칙이 적용이 됐다
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jinju.spring.ex.jsp.repository.UserRepository">
+ 	
+ 	<insert id="insertUser" parameterType="map">
+ 		INSERT INTO
+ 			`new_user`
+ 		(
+ 			`name`
+ 			, `yyyymmdd`
+ 			, `email`
+ 		)
+ 		VALUE
+ 		(
+ 			#{name}
+ 			, #{birthday} <!-- 전달 받은 값(birthday 값)의 파람어노테이션의 키워드는 birthday임 -->
+ 			, #{email}
+ 		)
+ 	</insert>
+ 
+ </mapper>
