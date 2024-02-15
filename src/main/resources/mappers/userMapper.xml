@@ -27,5 +27,23 @@
  			, #{email}
  		)
  	</insert>
+ 	
+ 	<select id="selectLastUser"
+ 	resultType="com.jinju.spring.ex.jsp.domain.User">
+ 		SELECT
+ 			`id`
+ 			, `name`
+ 			, `yyyymmdd`
+ 			, `email`
+ 			, `introduce`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`new_user`
+ 		ORDER BY
+ 			`id` DESC <!-- 내림차순 -->
+ 		LIMIT
+ 			1	
+ 	</select>
  
  </mapper>
