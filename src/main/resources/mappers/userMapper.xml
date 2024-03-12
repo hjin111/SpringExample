@@ -28,6 +28,26 @@
  		)
  	</insert>
  	
+ 	<insert id="insertUserByObject"
+ 	parameterType="com.jinju.spring.ex.jsp.domain.User"
+ 	useGeneratedKeys="true" keyProperty="id"><!-- insert 한 이후에 insert 된 그 행에 id 라는 컬럼에 매칭된 primary key를 얻어 내서 한번 더 조회를 해온다 라는 얘기 
+ 													조회해서 parameterType 으로 전달된 이 객체 안에 id와 매칭 되는 멤버 변수가 있으면 거기다가 값을 채워줄거임 -->
+ 		INSERT INTO
+ 			`new_user`
+ 		(
+ 			`name`
+ 			, `yyyymmdd`
+ 			, `email`
+ 		)
+ 		VALUE
+ 		(
+ 			<!-- 해당 하는 객체 안에 들어 있는 멤버 변수 값을 꺼내 오면 됨( 멤버 변수 이름으로 매칭 시켜 주면 됨 ) -->
+ 			#{name}
+ 			, #{yyyymmdd}
+ 			, #{email}
+ 		)
+ 	</insert>
+ 	
  	<select id="selectLastUser"
  	resultType="com.jinju.spring.ex.jsp.domain.User">
  		SELECT
@@ -44,6 +64,22 @@
  			`id` DESC <!-- 내림차순 -->
  		LIMIT
  			1	
+ 	</select>
+ 	
+ 	<select id="selectUserList"
+ 	resultType="com.jinju.spring.ex.jsp.domain.User">
+ 		SELECT
+ 			`id`
+ 			, `name`
+ 			, `yyyymmdd`
+ 			, `email`
+ 			, `introduce`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`new_user`
+ 		ORDER BY
+ 			`id` DESC <!-- 내림차순 -->
  	</select>
  
  </mapper>

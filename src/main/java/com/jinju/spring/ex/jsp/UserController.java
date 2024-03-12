@@ -27,15 +27,35 @@ public class UserController {
 	//@RequestMapping(path="/jsp/user/create", method=RequestMethod.GET) // requestMapping 안에 설정이 들어가 있는데 그걸 생략한 상태였던거임
 																		// 어떻게 들어가있냐면 @RequestMapping(path="/jsp/user/create", method=RequestMethod.GET) 이게 생략되어져 있는 상태
 	@GetMapping("/create")// Get 메소드를 통해서 페이지를 만들고 url 매핑하겠다
-	@ResponseBody
+	// @ResponseBody
 	public String createUser(
 			@RequestParam("name") String name
 			, @RequestParam("birthday") String birthday
-			, @RequestParam("email") String email){
+			, @RequestParam("email") String email
+			, Model model){
 		
-		int count = userService.addUser(name, birthday, email);
+		// int count = userService.addUser(name, birthday, email);
+		// 파라미터로 전달 된 name, birthday, email 이 값들을 기반으로 새로운 형태로 insert 하는 방식
 		
-		return "수행 결과 : " + count;
+		// 객체 형태로 전달하는 addUserByObject를 호출해보자
+		User user = new User(); // 기본 생성자로 객체 생성
+		// 해당 하는 user 객체의 멤버 변수 값을 채워 넣기 ( request로 전달된 값으로 user 객체를 하나 만들어 냄 )
+		user.setName(name);
+		user.setYyyymmdd(birthday);
+		user.setEmail(email);
+		
+		int count = userService.addUserByObject(user);
+		// 그러면 이제 user 객체에는 이 메소드가 수행된 이후에 뭐가 저장 되어 있음?? 방금 insert 된 그 primary key 를 안전하게 얻어 온 값이 저장 되어 있음
+		// user 객체 안에 들어 있는 값을 그냥 단순하게 수행 결과 해서 response에 담을게 아니라 user 라는 객체 안에 들어 있는 값을 우리가 이미 만들어 놓은 jsp 로 보내면 좋을거 같음 
+		
+		model.addAttribute("result", user);
+		
+		//return "수행 결과 : " + count;
+		return "jsp/userInfo";
+		
+		// create 페이지가 insert 수행 한 이후에 그냥 실행된 행의 갯수를 간단하게 responsebody에 채우는 거였는데  
+		// 이 create 페이지가 어떻게 바뀌었냐 하나의 행을 insert 하고 나서 그 inset 된 행의 primary key 까지 얻어온 다음에 그 모든 정보를 jsp를 통해 html 태그 구성해서 response에 채우는 흐름이다.
+		
 	}
 	
 	// 특정 위치에 있는 jsp 내용을 htmlresponse로 만들어서 전달할수있도록 해주는 메소드이다
